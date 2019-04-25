@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        new FetchData().execute();
     }
 
     private class FetchData extends AsyncTask<Void,Void,String>{
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
             try {
                 // Construct the URL for the Internet service
-                URL url = new URL("_ENTER_THE_URL_TO_THE_PHP_SERVICE_SERVING_JSON_HERE_");
+                URL url = new URL("http://wwwlab.iit.his.se/brom/kurser/mobilprog/dbservice/admin/getdataasjson.php?type=brom");
 
                 // Create the request to the PHP-service, and open the connection
                 urlConnection = (HttpURLConnection) url.openConnection();
@@ -97,7 +98,6 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(String o) {
             super.onPostExecute(o);
             // This code executes after we have received our data. The String object o holds
-            // the un-parsed JSON string or is null if we had an IOException during the fetch.
 
             // Implement a parsing code that loops through the entire JSON and creates objects
             // of our newly created Mountain class.
