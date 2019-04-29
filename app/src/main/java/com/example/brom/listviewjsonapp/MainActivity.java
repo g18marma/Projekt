@@ -5,6 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -97,11 +101,17 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String o) {
             super.onPostExecute(o);
-            // This code executes after we have received our data. The String object o holds
 
-            // Implement a parsing code that loops through the entire JSON and creates objects
-            // of our newly created Mountain class.
-        }
+            try {
+
+                JSONArray json1 = new JSONArray(o);
+
+                JSONObject json2 = json1.getJSONObject(1);
+                Log.d("martin",json2.toString());
+
+            } catch (JSONException e) {
+                Log.e("brom","E:"+e.getMessage());
+            }
     }
-}
+}}
 
