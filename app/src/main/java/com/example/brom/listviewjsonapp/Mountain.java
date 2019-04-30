@@ -26,9 +26,9 @@ public class Mountain {
     public String info(){
 
         String str=name;
-        str+="is located in ";
+        str+=" is located in ";
         str+=location;
-        str+="and has an height of ";
+        str+=" and has an height of ";
         str+= Integer.toString(height);
         str+="m. ";
         return str;

@@ -4,12 +4,15 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -45,14 +48,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        new FetchData().execute();
-
 
 
         ArrayAdapter<Mountain> adapter=new ArrayAdapter<Mountain>(this, R.layout.my_item_textview, R.id.list_item_textview,mountainArrayList);
         ListView myListView = (ListView)findViewById(R.id.my_list);
         myListView.setAdapter(adapter);
-
+        new FetchData().execute();
 
         myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -60,6 +61,31 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), mountainArrayList.get(position).info(), Toast.LENGTH_SHORT).show();
             }
         });
+
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+
+        if (id == R.id.action_refresh) {
+
+            new FetchData() .execute();
+            mountainArrayList.clear();
+            return true;
+        }
+
+
+        return super.onOptionsItemSelected(item);
     }
 
     private class FetchData extends AsyncTask<Void,Void,String>{
