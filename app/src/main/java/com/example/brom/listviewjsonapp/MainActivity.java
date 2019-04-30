@@ -4,6 +4,12 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -15,6 +21,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 // Create a new class, Mountain, that can hold your JSON data
@@ -30,11 +39,27 @@ import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
+    private ArrayList<Mountain> mountainArrayList=new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         new FetchData().execute();
+
+
+
+        ArrayAdapter<Mountain> adapter=new ArrayAdapter<Mountain>(this, R.layout.my_item_textview, R.id.list_item_textview,mountainArrayList);
+        ListView myListView = (ListView)findViewById(R.id.my_list);
+        myListView.setAdapter(adapter);
+
+
+        myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Toast.makeText(getApplicationContext(), mountainArrayList.get(position).info(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private class FetchData extends AsyncTask<Void,Void,String>{
@@ -106,12 +131,35 @@ public class MainActivity extends AppCompatActivity {
 
                 JSONArray json1 = new JSONArray(o);
 
-                JSONObject json2 = json1.getJSONObject(1);
-                Log.d("martin",json2.toString());
+                for(int i = 0; i<json1.length(); i++){
+                    JSONObject mountains = json1.getJSONObject(i);
+                    String mountainName = mountains.getString("name");
+                    String mountainLocation = mountains.getString("location");
+                    int mountainSize = mountains.getInt("size");
+                    Log.d("martin",mountainLocation);
+
+                    mountainArrayList.add(new Mountain(mountainName, mountainLocation, mountainSize));
+
+                }
+
+                //Log.d("martin",json1.toString());
+
 
             } catch (JSONException e) {
                 Log.e("brom","E:"+e.getMessage());
             }
+            ArrayAdapter<Mountain> adapter=new ArrayAdapter<Mountain>(MainActivity.this, R.layout.my_item_textview, R.id.list_item_textview,mountainArrayList);
+            ListView myListView = (ListView)findViewById(R.id.my_list);
+            myListView.setAdapter(adapter);
+
+
+            myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                    Toast.makeText(getApplicationContext(), mountainArrayList.get(position).info(), Toast.LENGTH_SHORT).show();
+                }
+            });
     }
-}}
+}
+}
 
