@@ -38,6 +38,7 @@ import java.util.List;
 // Parse the retrieved JSON and update the ListView adapter
 
 // Implement a "refresh" functionality using Android's menu system
+/* https://www.filminstitutet.se/sv/nyheter/2017/vilka-genrer-valjer-biopubliken/ */
 
 
 public class MainActivity extends AppCompatActivity {
