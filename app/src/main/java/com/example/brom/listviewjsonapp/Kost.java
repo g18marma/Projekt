@@ -2,35 +2,43 @@ package com.example.brom.listviewjsonapp;
 
 public class Kost {
 
-    private String name;
-    private String type;
-    private int size;
+    private String kostName;
+    private String kostCompany;
+    private String kostType;
+    private int kostPrice;
+    private int kostSize;
+    private int kostScoop;
 
 
-    public Kost(String inName, String inLocation, int inHeight) {
+    public Kost(String inName, String inType, String inCompany, int inSize, int inPrice, int inScoop) {
 
-        name = inName;
-        type = inLocation;
-        size = inHeight;
+        kostName = inName;
+        kostPrice = inPrice;
+        kostCompany = inCompany;
+        kostScoop = inScoop;
+        kostType = inType;
+        kostSize = inSize;
     }
 
     public Kost(String inName) {
 
-        name = inName;
-        type = "";
-        size = 1;
+        kostName = inName;
+        kostType = "";
+        kostSize = 1;
     }
 
-    public String toString() {return name;}
+    public String toString() {return kostName;}
+
+
 
     public String info(){
 
-        String str=name;
-        str+=" is located in ";
-        str+=type;
-        str+=" and has an height of ";
-        str+= Integer.toString(size);
-        str+="m. ";
+        String str=kostName;
+        str+=" ";
+        str+=kostType;
+        str+=" ";
+        str+= Integer.toString(kostSize);
+        str+="g ";
         return str;
     }
 

@@ -29,6 +29,8 @@ import java.util.Arrays;
 import java.util.List;
 
 
+
+
 public class MainActivity extends AppCompatActivity {
 
     private ArrayList<Kost> kostArrayList=new ArrayList<>();
@@ -50,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), kostArrayList.get(position).info(), Toast.LENGTH_SHORT).show();
             }
         });
+
 
     }
 
@@ -147,14 +150,19 @@ public class MainActivity extends AppCompatActivity {
 
                 for(int i = 0; i<json1.length(); i++){
                     JSONObject mountains = json1.getJSONObject(i);
-                    String mountainName = mountains.getString("name");
-                    String mountainLocation = mountains.getString("location");
-                    int mountainSize = mountains.getInt("size");
-                    Log.d("martin",mountainLocation);
+                    String kostName = mountains.getString("name");
+                    String kostType = mountains.getString("location");
+                    String kostCompany = mountains.getString("company");
+                     int kostPrice = mountains.getInt("category");
+                     int kostSize = mountains.getInt("cost");
+                     int kostScoop = mountains.getInt("size");
 
-                    kostArrayList.add(new Kost(mountainName, mountainLocation, mountainSize));
+
+                    kostArrayList.add(new Kost(kostName, kostType, kostCompany, kostPrice, kostSize, kostScoop));
 
                 }
+
+                //Log.d("martin",json1.toString());
 
 
             } catch (JSONException e) {
