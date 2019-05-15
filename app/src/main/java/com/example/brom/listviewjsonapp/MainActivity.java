@@ -29,21 +29,9 @@ import java.util.Arrays;
 import java.util.List;
 
 
-// Create a new class, Mountain, that can hold your JSON data
-
-// Create a ListView as in "Assignment 1 - Toast and ListView"
-
-// Retrieve data from Internet service using AsyncTask and the included networking code
-
-// Parse the retrieved JSON and update the ListView adapter
-
-// Implement a "refresh" functionality using Android's menu system
-/* https://www.filminstitutet.se/sv/nyheter/2017/vilka-genrer-valjer-biopubliken/ */
-
-
 public class MainActivity extends AppCompatActivity {
 
-    private ArrayList<Mountain> mountainArrayList=new ArrayList<>();
+    private ArrayList<Kost> kostArrayList=new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        ArrayAdapter<Mountain> adapter=new ArrayAdapter<Mountain>(this, R.layout.my_item_textview, R.id.list_item_textview,mountainArrayList);
+        ArrayAdapter<Kost> adapter=new ArrayAdapter<Kost>(this, R.layout.my_item_textview, R.id.list_item_textview,kostArrayList);
         ListView myListView = (ListView)findViewById(R.id.my_list);
         myListView.setAdapter(adapter);
         new FetchData().execute();
@@ -59,10 +47,9 @@ public class MainActivity extends AppCompatActivity {
         myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                Toast.makeText(getApplicationContext(), mountainArrayList.get(position).info(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), kostArrayList.get(position).info(), Toast.LENGTH_SHORT).show();
             }
         });
-
 
     }
 
@@ -81,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_refresh) {
 
             new FetchData() .execute();
-            mountainArrayList.clear();
+            kostArrayList.clear();
             return true;
         }
 
@@ -102,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
 
             try {
                 // Construct the URL for the Internet service
-                URL url = new URL("http://wwwlab.iit.his.se/brom/kurser/mobilprog/dbservice/admin/getdataasjson.php?type=brom");
+                URL url = new URL("http://wwwlab.iit.his.se/brom/kurser/mobilprog/dbservice/admin/getdataasjson.php?type=g18marma");
 
                 // Create the request to the PHP-service, and open the connection
                 urlConnection = (HttpURLConnection) url.openConnection();
@@ -165,17 +152,15 @@ public class MainActivity extends AppCompatActivity {
                     int mountainSize = mountains.getInt("size");
                     Log.d("martin",mountainLocation);
 
-                    mountainArrayList.add(new Mountain(mountainName, mountainLocation, mountainSize));
+                    kostArrayList.add(new Kost(mountainName, mountainLocation, mountainSize));
 
                 }
-
-                //Log.d("martin",json1.toString());
 
 
             } catch (JSONException e) {
                 Log.e("brom","E:"+e.getMessage());
             }
-            ArrayAdapter<Mountain> adapter=new ArrayAdapter<Mountain>(MainActivity.this, R.layout.my_item_textview, R.id.list_item_textview,mountainArrayList);
+            ArrayAdapter<Kost> adapter=new ArrayAdapter<Kost>(MainActivity.this, R.layout.my_item_textview, R.id.list_item_textview,kostArrayList);
             ListView myListView = (ListView)findViewById(R.id.my_list);
             myListView.setAdapter(adapter);
 
@@ -183,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
             myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                    Toast.makeText(getApplicationContext(), mountainArrayList.get(position).info(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), kostArrayList.get(position).info(), Toast.LENGTH_SHORT).show();
                 }
             });
     }
