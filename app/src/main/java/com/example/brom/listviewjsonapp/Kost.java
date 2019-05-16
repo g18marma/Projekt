@@ -10,6 +10,8 @@ public class Kost {
     private int kostScoop;
 
 
+
+
     public Kost(String inName, String inType, String inCompany, int inSize, int inPrice, int inScoop) {
 
         kostName = inName;
@@ -20,14 +22,56 @@ public class Kost {
         kostSize = inSize;
     }
 
-    public Kost(String inName) {
+    public String toString() {return kostName;}
 
-        kostName = inName;
-        kostType = "";
-        kostSize = 1;
+
+    public String getKostName() {
+        return kostName;
     }
 
-    public String toString() {return kostName;}
+    public void setKostName(String kostName) {
+        this.kostName = kostName;
+    }
+
+    public String getKostCompany() {
+        return kostCompany;
+    }
+
+    public void setKostCompany(String kostCompany) {
+        this.kostCompany = kostCompany;
+    }
+
+    public String getKostType() {
+        return kostType;
+    }
+
+    public void setKostType(String kostType) {
+        this.kostType = kostType;
+    }
+
+    public int getKostPrice() {
+        return kostPrice;
+    }
+
+    public void setKostPrice(int kostPrice) {
+        this.kostPrice = kostPrice;
+    }
+
+    public int getKostSize() {
+        return kostSize;
+    }
+
+    public void setKostSize(int kostSize) {
+        this.kostSize = kostSize;
+    }
+
+    public int getKostScoop() {
+        return kostScoop;
+    }
+
+    public void setKostScoop(int kostScoop) {
+        this.kostScoop = kostScoop;
+    }
 
 
 

@@ -1,5 +1,6 @@
 package com.example.brom.listviewjsonapp;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -40,16 +41,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        ArrayAdapter<Kost> adapter=new ArrayAdapter<Kost>(this, R.layout.my_item_textview, R.id.list_item_textview,kostArrayList);
+        new FetchData().execute();
+        final ArrayAdapter<Kost> adapter = new ArrayAdapter(getApplicationContext(), R.layout.my_item_textview, R.id.my_list, kostArrayList);
         ListView myListView = (ListView)findViewById(R.id.my_list);
         myListView.setAdapter(adapter);
-        new FetchData().execute();
 
         myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                Toast.makeText(getApplicationContext(), kostArrayList.get(position).info(), Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(getApplicationContext(), Kostinfo.class);
+                Kost k = adapter.getItem(position);
+                intent.putExtra("name", k.getKostName());
+                startActivity(intent);
+
             }
         });
 
@@ -157,18 +162,14 @@ public class MainActivity extends AppCompatActivity {
                      int kostSize = mountains.getInt("cost");
                      int kostScoop = mountains.getInt("size");
 
-
-                    kostArrayList.add(new Kost(kostName, kostType, kostCompany, kostPrice, kostSize, kostScoop));
+                    kostArrayList.add(new Kost(kostName, kostType, kostCompany, kostSize, kostPrice, kostScoop));
 
                 }
-
-                //Log.d("martin",json1.toString());
-
 
             } catch (JSONException e) {
                 Log.e("brom","E:"+e.getMessage());
             }
-            ArrayAdapter<Kost> adapter=new ArrayAdapter<Kost>(MainActivity.this, R.layout.my_item_textview, R.id.list_item_textview,kostArrayList);
+            final ArrayAdapter<Kost> adapter=new ArrayAdapter<Kost>(MainActivity.this, R.layout.my_item_textview, R.id.list_item_textview,kostArrayList);
             ListView myListView = (ListView)findViewById(R.id.my_list);
             myListView.setAdapter(adapter);
 
@@ -177,6 +178,15 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                     Toast.makeText(getApplicationContext(), kostArrayList.get(position).info(), Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplicationContext(), Kostinfo.class);
+                    Kost k = adapter.getItem(position);
+                    intent.putExtra("name", k.getKostName());
+                    intent.putExtra("type", k.getKostType());
+                    intent.putExtra("company", k.getKostCompany());
+                    intent.putExtra("price", k.getKostPrice());
+                    intent.putExtra("size", k.getKostSize());
+                    intent.putExtra("scoop", k.getKostScoop());
+                    startActivity(intent);
                 }
             });
     }
