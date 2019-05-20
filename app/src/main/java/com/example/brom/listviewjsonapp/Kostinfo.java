@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -29,9 +30,13 @@ public class Kostinfo extends AppCompatActivity {
         int IncomingPrice = IncomingIntent.getIntExtra("price", 0);
         int IncomingSize = IncomingIntent.getIntExtra("size", 0 );
         int IncomingScoop = IncomingIntent.getIntExtra("scoop", 0);
+        int IncomingKcal = IncomingIntent.getIntExtra("Kcal", 0 );
+        int IncomingFett = IncomingIntent.getIntExtra("Fett", 0 );
+        int IncomingProtein = IncomingIntent.getIntExtra("Protein", 0);
 
 
-        incomingData1.setText("Sort: " + IncomingType + "\nTillverkare: " + IncomingCompany + "\nPris: " + IncomingPrice + "kr\nStorlek:  " + IncomingSize + "g\nDoseringar " + IncomingScoop+ "st");
+
+        incomingData1.setText(IncomingType + "\n\nTillverkare: " + IncomingCompany + "\nPris: " + IncomingPrice + "kr\nStorlek: " + IncomingSize + "g\nDoseringar: " + IncomingScoop+ "st" + "\n\nKcal: " + IncomingKcal + "kcal\nFett: "+IncomingFett + "g\nProtein: " + IncomingProtein +"g");
         incomingData.setText(IncomingName);
 
 

@@ -8,18 +8,49 @@ public class Kost {
     private int kostPrice;
     private int kostSize;
     private int kostScoop;
+    private int kostKcal;
+    private int kostFett;
+    private int kostProtein;
 
 
 
 
-    public Kost(String inName, String inType, String inCompany, int inSize, int inPrice, int inScoop) {
+
+    public Kost(String inName, String inType, String inCompany,  int inPrice, int inSize, int inScoop, int inKcal, int inFett, int inProtein) {
 
         kostName = inName;
-        kostPrice = inPrice;
+        this.kostPrice = inPrice;
         kostCompany = inCompany;
-        kostScoop = inScoop;
+        this.kostScoop = inScoop;
         kostType = inType;
-        kostSize = inSize;
+        this.kostSize = inSize;
+        this.kostKcal = inKcal;
+        this.kostFett = inFett;
+        this.kostProtein = inProtein;
+    }
+
+    public int getKostFett() {
+        return kostFett;
+    }
+
+    public void setKostFett(int kostFett) {
+        this.kostFett = kostFett;
+    }
+
+    public int getKostProtein() {
+        return kostProtein;
+    }
+
+    public void setKostProtein(int kostProtein) {
+        this.kostProtein = kostProtein;
+    }
+
+    public int getKostKcal() {
+        return kostKcal;
+    }
+
+    public void setKostKcal(int kostKcal) {
+        this.kostKcal = kostKcal;
     }
 
     public String toString() {return kostName;}

@@ -49,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
         myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-
                 Intent intent = new Intent(getApplicationContext(), Kostinfo.class);
                 Kost k = adapter.getItem(position);
                 intent.putExtra("name", k.getKostName());
@@ -154,20 +153,28 @@ public class MainActivity extends AppCompatActivity {
                 JSONArray json1 = new JSONArray(o);
 
                 for(int i = 0; i<json1.length(); i++){
-                    JSONObject mountains = json1.getJSONObject(i);
-                    String kostName = mountains.getString("name");
-                    String kostType = mountains.getString("location");
-                    String kostCompany = mountains.getString("company");
-                     int kostPrice = mountains.getInt("category");
-                     int kostSize = mountains.getInt("cost");
-                     int kostScoop = mountains.getInt("size");
+                    JSONObject kost = json1.getJSONObject(i);
+                    String kostName = kost.getString("name");
+                    String kostType = kost.getString("location");
+                    String kostCompany = kost.getString("company");
+                    int kostPrice = kost.getInt("category");
+                    int kostSize = kost.getInt("size");
+                    int kostScoop = kost.getInt("cost");
 
-                    kostArrayList.add(new Kost(kostName, kostType, kostCompany, kostSize, kostPrice, kostScoop));
+                    JSONObject auxdata = new JSONObject(kost.getString("auxdata"));
+
+                    int kostKcal = auxdata.getInt("Kcal");
+                    int kostFett = auxdata.getInt("Fett");
+                    int kostProtein = auxdata.getInt("Protein");
+
+                    Log.d("kcal", "kostKcal " + kostKcal);
+
+                    kostArrayList.add(new Kost(kostName, kostType, kostCompany, kostPrice, kostSize, kostScoop, kostKcal, kostFett, kostProtein));
 
                 }
 
             } catch (JSONException e) {
-                Log.e("brom","E:"+e.getMessage());
+                Log.e("kcalE","E:"+e.getMessage());
             }
             final ArrayAdapter<Kost> adapter=new ArrayAdapter<Kost>(MainActivity.this, R.layout.my_item_textview, R.id.list_item_textview,kostArrayList);
             ListView myListView = (ListView)findViewById(R.id.my_list);
@@ -177,7 +184,6 @@ public class MainActivity extends AppCompatActivity {
             myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                    Toast.makeText(getApplicationContext(), kostArrayList.get(position).info(), Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getApplicationContext(), Kostinfo.class);
                     Kost k = adapter.getItem(position);
                     intent.putExtra("name", k.getKostName());
@@ -186,6 +192,10 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra("price", k.getKostPrice());
                     intent.putExtra("size", k.getKostSize());
                     intent.putExtra("scoop", k.getKostScoop());
+                    intent.putExtra("Kcal", k.getKostKcal());
+                    intent.putExtra("Fett", k.getKostFett());
+                    intent.putExtra("Protein", k.getKostProtein());
+
                     startActivity(intent);
                 }
             });
