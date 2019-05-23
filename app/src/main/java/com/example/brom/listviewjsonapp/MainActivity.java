@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         ListView myListView = (ListView)findViewById(R.id.my_list);
         myListView.setAdapter(adapter);
 
+
         myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
@@ -53,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
                 Kost k = adapter.getItem(position);
                 intent.putExtra("name", k.getKostName());
                 startActivity(intent);
-
             }
         });
 
@@ -78,6 +78,14 @@ public class MainActivity extends AppCompatActivity {
             kostArrayList.clear();
             return true;
         }
+
+        if (id == R.id.action_about){
+
+            Intent intent = new Intent (this, About.class);
+            startActivity(intent);
+            return true;
+        }
+
 
 
         return super.onOptionsItemSelected(item);

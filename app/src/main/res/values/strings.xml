@@ -3,4 +3,5 @@
     <string name="action_refresh">Refresh</string>
     <string name="title_activity_kost">KostActivity</string>
     <string name="title_activity_kostinfo">Kostinfo</string>
+    <string name="title_activity_about">About</string>
 </resources>
