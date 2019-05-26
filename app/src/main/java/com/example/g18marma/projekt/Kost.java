@@ -1,4 +1,4 @@
-package com.example.brom.listviewjsonapp;
+package com.example.g18marma.projekt;
 
 public class Kost {
 
