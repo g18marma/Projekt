@@ -17,6 +17,7 @@ public class About extends AppCompatActivity {
         TextView aboutText2 = (TextView)findViewById(R.id.textView4);
         aboutText.setText("Kost till Skott är en app som låter användaren upptäcka olika kosttillskott och granska deras näringsvärden. Appen är riktad till alla träningsintresserade i alla åldrar. ");
         aboutText2.setText("Kost till Skott är skapad av Martin Magnusson 2019");
+        //123
     }
 
 }
